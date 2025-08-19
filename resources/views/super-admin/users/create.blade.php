@@ -16,26 +16,29 @@
                     <!-- Nickname -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Nickname</label>
-                        <input type="text" name="nickname" value="{{ old('nickname') }}" autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                        <input type="text" name="nickname" value="{{ old('nickname') }}" autocomplete="off" required
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                         <small class="text-gray-500 text-xs">Puede contener mayúsculas y minúsculas.</small>
                     </div>
 
                     <!-- Nombre -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Nombre</label>
-                        <input type="text" name="name" value="{{ old('name') }}" autocomplete="off"
+                        <input type="text" name="name" value="{{ old('name') }}" autocomplete="off" required
                             style="text-transform: uppercase;"
                             oninput="this.value = this.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ\s]/gi, '')"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                         <small class="text-gray-500 text-xs">Solo letras y espacios.</small>
                     </div>
 
                     <!-- Email -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                        <input type="email" name="email" value="{{ old('email') }}" autocomplete="off" required
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                     </div>
 
                     <!-- Contraseña + Generador -->
@@ -45,13 +48,13 @@
                             <!-- Input con ojito -->
                             <div class="relative flex-1">
                                 <input :type="show ? 'text' : 'password'" id="password" name="password"
-                                    autocomplete="off"
-                                    class="block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm pr-10">
+                                    autocomplete="off" required
+                                    class="block w-full rounded border-gray-300 shadow-sm
+                                           focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm pr-10">
 
                                 <!-- Botón ojito -->
                                 <button type="button" @click="show = !show"
                                     class="absolute inset-y-0 right-2 flex items-center text-gray-500">
-                                    <!-- icons -->
                                 </button>
                             </div>
 
@@ -67,8 +70,9 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Confirmar Contraseña</label>
                         <input type="password" name="password_confirmation" id="password_confirmation"
-                            autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            autocomplete="off" required
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                     </div>
                 </div>
 

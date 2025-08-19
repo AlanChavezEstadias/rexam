@@ -18,17 +18,19 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Nickname</label>
                         <input type="text" name="nickname" value="{{ old('nickname', $user->nickname) }}"
-                            autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            autocomplete="off" required
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                     </div>
 
                     <!-- Nombre -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Nombre</label>
                         <input type="text" name="name" value="{{ old('name', $user->name) }}" autocomplete="off"
-                            style="text-transform: uppercase;"
+                            required style="text-transform: uppercase;"
                             oninput="this.value = this.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ\s]/gi, '')"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                         <small class="text-gray-500 text-xs">Solo letras y espacios.</small>
                     </div>
 
@@ -36,14 +38,17 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" name="email" value="{{ old('email', $user->email) }}" autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            required
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                     </div>
 
                     <!-- Contraseña (opcional) -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Contraseña (opcional)</label>
                         <input type="password" name="password" autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                         <small class="text-gray-500 text-xs">Déjalo vacío si no deseas cambiarla.</small>
                     </div>
 
@@ -51,7 +56,8 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Confirmar Contraseña</label>
                         <input type="password" name="password_confirmation" autocomplete="off"
-                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm
+                                   focus:border-sonora-naranja focus:ring-sonora-naranja sm:text-sm">
                     </div>
                 </div>
 
