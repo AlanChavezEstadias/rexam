@@ -7,6 +7,21 @@
             ['label' => 'Usuarios', 'url' => route('super-admin.users.index')],
         ]" />
 
+        <!-- Mensajes de éxito o error -->
+        @if (session('success'))
+            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+                class="mb-4 px-4 py-3 bg-green-100 text-green-800 rounded shadow transition duration-500">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+                class="mb-4 px-4 py-3 bg-red-100 text-red-800 rounded shadow transition duration-500">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Botón Crear Usuario -->
         <div class="flex justify-end mb-4">
             <a href="{{ route('super-admin.users.create') }}"
