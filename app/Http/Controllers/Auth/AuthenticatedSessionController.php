@@ -20,18 +20,24 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        $user = Auth::user();
+        if (Auth::guard('web')->check()) {
+            $user = Auth::guard('web')->user();
 
-        if ($user->hasRole('SuperAdmin')) {
-            return redirect()->route('super-admin.dashboard');
+            if ($user->hasRole('SuperAdmin')) {
+                return redirect()->route('super-admin.dashboard');
+            }
+
+            if ($user->hasRole('Administrador')) {
+                return redirect()->route('admin.dashboard');
+            }
         }
 
-        if ($user->hasRole('Administrador')) {
-            return redirect()->route('admin.dashboard');
-        }
+        if (Auth::guard('exam')->check()) {
+            $examUser = Auth::guard('exam')->user();
 
-        if ($user->hasRole('Usuario')) {
-            return redirect()->route('user.dashboard');
+            if ($examUser->hasRole('Usuario')) {
+                return redirect()->route('user.dashboard');
+            }
         }
 
         // fallback si no tiene rol asignado
@@ -41,6 +47,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
+        Auth::guard('exam')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

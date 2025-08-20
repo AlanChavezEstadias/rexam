@@ -27,23 +27,37 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        // Detectar si lo que se ingresó es email o nickname
-        $loginType = filter_var($this->input('login'), FILTER_VALIDATE_EMAIL)
+        $loginInput = $this->input('login');
+
+        // Detectar si es email o nickname
+        $loginType = filter_var($loginInput, FILTER_VALIDATE_EMAIL)
         ? 'email'
         : 'nickname';
 
-        if (! Auth::attempt(
-            [$loginType => $this->input('login'), 'password' => $this->input('password')],
+        // Primero intentar en exam_users
+        if (Auth::guard('exam')->attempt(
+            [$loginType => $loginInput, 'password' => $this->input('password')],
             $this->boolean('remember')
         )) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'login' => trans('auth.failed'),
-            ]);
+            RateLimiter::clear($this->throttleKey());
+            return;
         }
 
-        RateLimiter::clear($this->throttleKey());
+        // Luego intentar en users
+        if (Auth::guard('web')->attempt(
+            [$loginType => $loginInput, 'password' => $this->input('password')],
+            $this->boolean('remember')
+        )) {
+            RateLimiter::clear($this->throttleKey());
+            return;
+        }
+
+        // Si fallan ambos
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'login' => trans('auth.failed'),
+        ]);
     }
 
     public function ensureIsNotRateLimited(): void

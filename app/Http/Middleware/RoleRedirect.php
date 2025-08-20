@@ -9,24 +9,30 @@ class RoleRedirect
 {
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
-
-        // Si el usuario no está logueado, lo dejamos pasar a login
-        if (! $user) {
-            return $next($request);
-        }
-
-        // Si viene a /dashboard, lo redirigimos según rol
+        // Si el request es hacia /dashboard
         if ($request->is('dashboard')) {
-            if ($user->hasRole('SuperAdmin')) {
-                return redirect('/dashboard/superadmin');
+
+            // Guard WEB
+            if (Auth::guard('web')->check()) {
+                $user = Auth::guard('web')->user();
+
+                if ($user && $user->hasRole('SuperAdmin')) {
+                    return redirect('/super-admin/dashboard');
+                }
+
+                if ($user && $user->hasRole('Administrador')) {
+                    return redirect('/admin/dashboard');
+                }
             }
 
-            if ($user->hasRole('Administrador')) {
-                return redirect('/dashboard/admin');
-            }
+            // Guard EXAM
+            if (Auth::guard('exam')->check()) {
+                $examUser = Auth::guard('exam')->user();
 
-            return redirect('/dashboard/user');
+                if ($examUser && $examUser->hasRole('Usuario')) {
+                    return redirect('/user/dashboard');
+                }
+            }
         }
 
         return $next($request);

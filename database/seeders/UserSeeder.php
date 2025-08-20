@@ -26,14 +26,5 @@ class UserSeeder extends Seeder
             'password' => Hash::make('132'),
         ]);
         $admin->assignRole('Administrador');
-
-        // Usuario normal
-        $user = User::create([
-            'name'     => 'Usuario',
-            'nickname' => 'Usuario',
-            'email'    => 'usuario@example.com',
-            'password' => Hash::make('132'),
-        ]);
-        $user->assignRole('Usuario');
     }
 }

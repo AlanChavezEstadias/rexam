@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\User\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Redirigir siempre al login
@@ -31,10 +32,8 @@ Route::middleware(['auth', 'verified', 'role:Administrador'])->prefix('admin')->
 });
 
 // Grupo Usuario
-Route::middleware(['auth', 'verified', 'role:Usuario'])->prefix('user')->name('user.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('user.dashboard');
-    })->name('dashboard');
+Route::middleware(['auth:exam', 'role:Usuario'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__ . '/auth.php';

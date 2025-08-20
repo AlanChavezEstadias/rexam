@@ -10,23 +10,29 @@ class RedirectToDashboard
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            $user = Auth::user();
+        // Guard WEB
+        if (Auth::guard('web')->check()) {
+            $user = Auth::guard('web')->user();
 
-            if ($user->hasRole('SuperAdmin')) {
+            if ($user && $user->hasRole('SuperAdmin')) {
                 return redirect()->route('super-admin.dashboard');
             }
 
-            if ($user->hasRole('Administrador')) {
+            if ($user && $user->hasRole('Administrador')) {
                 return redirect()->route('admin.dashboard');
             }
+        }
 
-            if ($user->hasRole('Usuario')) {
+        // Guard EXAM
+        if (Auth::guard('exam')->check()) {
+            $examUser = Auth::guard('exam')->user();
+
+            if ($examUser && $examUser->hasRole('Usuario')) {
                 return redirect()->route('user.dashboard');
             }
         }
 
-        // si no está logueado o no tiene rol válido
+        // Si no está logueado en ningún guard
         return redirect()->route('login');
     }
 }

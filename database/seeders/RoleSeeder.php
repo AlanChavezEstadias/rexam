@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
             [
                 'id'         => 3,
                 'name'       => 'Usuario',
-                'guard_name' => 'web',
+                'guard_name' => 'exam',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
