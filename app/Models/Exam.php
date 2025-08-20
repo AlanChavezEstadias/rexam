@@ -19,6 +19,10 @@ class Exam extends Model
         'max_attempts',
         'min_score_to_pass',
         'is_active',
+        'shuffle_questions',
+        'show_results',
+        'allow_review',
+        'show_correct_answers',
     ];
 
     // Relaciones
@@ -36,4 +40,10 @@ class Exam extends Model
     {
         return $this->hasMany(ExamAttempt::class);
     }
+
+    public function steps()
+    {
+        return $this->hasMany(ExamStep::class);
+    }
+
 }

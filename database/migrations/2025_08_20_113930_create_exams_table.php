@@ -29,6 +29,14 @@ return new class extends Migration
             $table->integer('min_score_to_pass')->nullable();
             // Indica si el examen está activo
             $table->boolean('is_active')->default(true);
+            // barajar preguntas
+            $table->boolean('shuffle_questions')->default(false);
+            // mostrar resultados al terminar
+            $table->boolean('show_results')->default(true);
+            // permitir revisar respuestas
+            $table->boolean('allow_review')->default(false);
+            // mostrar cuáles eran correctas
+            $table->boolean('show_correct_answers')->default(false);
             $table->timestamps();
         });
     }
