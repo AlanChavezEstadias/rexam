@@ -12,7 +12,6 @@ Route::get('/', function () {
 // Grupo SuperAdmin
 Route::middleware(['auth', 'verified', 'role:SuperAdmin'])->prefix('super-admin')->name('super-admin.')->group(function () {
     Route::get('/dashboard', [SuperAdminDashboardController::class, 'index'])->name('dashboard');
-
     // Usuarios
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Vinkla\Hashids\Facades\Hashids;
 
 class User extends Authenticatable
 {
@@ -56,5 +57,19 @@ class User extends Authenticatable
                 DB::table('sessions')->where('user_id', $user->id)->delete();
             }
         });
+    }
+
+    public function getRouteKey()
+    {
+        return Hashids::connection()->encode($this->getKey());
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $id = Hashids::connection()->decode($value);
+        if (! empty($id)) {
+            return $this->whereKey($id[0])->firstOrFail();
+        }
+        return null;
     }
 }

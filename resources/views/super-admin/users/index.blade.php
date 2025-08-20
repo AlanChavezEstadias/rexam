@@ -68,21 +68,21 @@
                                 </td>
                                 <td class="px-4 py-2 text-right flex justify-end space-x-2">
                                     <!-- Botón Ver -->
-                                    <a href="{{ route('super-admin.users.show', $user->id) }}"
+                                    <a href="{{ route('super-admin.users.show', $user) }}"
                                         class="inline-flex items-center p-2 text-white bg-sonora-naranja hover:bg-orange-600 rounded"
                                         title="Ver">
                                         <x-heroicon-o-eye class="w-5 h-5" />
                                     </a>
 
                                     <!-- Botón Editar -->
-                                    <a href="{{ route('super-admin.users.edit', $user->id) }}"
+                                    <a href="{{ route('super-admin.users.edit', $user) }}"
                                         class="inline-flex items-center p-2 text-white bg-sonora-vino hover:bg-sonora-guinda rounded"
                                         title="Editar">
                                         <x-heroicon-o-pencil-square class="w-5 h-5" />
                                     </a>
 
                                     <!-- Botón Activar/Desactivar -->
-                                    <form action="{{ route('super-admin.users.toggle', $user->id) }}" method="POST"
+                                    <form action="{{ route('super-admin.users.toggle', $user) }}" method="POST"
                                         class="inline">
                                         @csrf
                                         @method('PATCH')
@@ -98,7 +98,7 @@
                                     </form>
 
                                     <!-- Botón Eliminar -->
-                                    <form action="{{ route('super-admin.users.destroy', $user->id) }}" method="POST"
+                                    <form action="{{ route('super-admin.users.destroy', $user) }}" method="POST"
                                         class="inline"
                                         onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?');">
                                         @csrf
