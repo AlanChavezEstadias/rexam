@@ -6,14 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Vinkla\Hashids\Facades\Hashids;
 
 class ExamUser extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes, HasRoles;
-
-    protected $table = 'exam_users';
-
-    // 🔑 Spatie necesita saber el guard asociado
+    protected $table             = 'exam_users';
     protected string $guard_name = 'exam';
 
     protected $fillable = [
@@ -57,5 +55,19 @@ class ExamUser extends Authenticatable
         }
 
         return true;
+    }
+
+    public function getRouteKey()
+    {
+        return Hashids::connection()->encode($this->getKey());
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $id = Hashids::connection()->decode($value);
+        if (! empty($id)) {
+            return $this->whereKey($id[0])->firstOrFail();
+        }
+        return null;
     }
 }
